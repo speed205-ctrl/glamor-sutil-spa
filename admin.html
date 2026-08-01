@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo — Glamor Sutil</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Design Tokens & Reset */
+        :root {
+            --font-sans: 'Outfit', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --color-bg-primary: #ffffff;
+            --color-bg-secondary: #fafafa;
+            --color-bg-tertiary: #f4f4f5;
+            --color-text-primary: #111111;
+            --color-text-secondary: #71717a;
+            --color-border: rgba(17, 17, 17, 0.08);
+            --color-error: #ef4444;
+            --color-success: #22c55e;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Style */
+        header {
+            background-color: var(--color-bg-primary);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-wrap {
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .logo span {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.1em;
+            margin-left: 10px;
+        }
+
+        .logout-btn {
+            background-color: var(--color-text-primary);
+            color: var(--color-bg-primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Card panels */
+        .card {
+            background-color: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 10px;
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--color-text-primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: var(--color-text-primary);
+            color: var(--color-bg-primary);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: opacity 0.2s ease, transform 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            color: var(--color-error);
+            border: 1px solid #fee2e2;
+        }
+
+        .alert-success {
+            background-color: #f0fdf4;
+            color: var(--color-success);
+            border: 1px solid #dcfce7;
+        }
+
+        /* Login & Configuration Panels */
+        .auth-container {
+            max-width: 450px;
+            margin: 100px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .auth-card {
+            background-color: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .auth-title {
+            text-align: center;
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+
+        /* Two column layout for dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Inventory Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--color-text-secondary);
+            background-color: var(--color-bg-secondary);
+        }
+
+        .thumb-img {
+            width: 45px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: var(--color-bg-secondary);
+        }
+
+        .btn-delete {
+            color: var(--color-error);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: underline;
+        }
+
+        .btn-delete:hover {
+            color: #b91c1c;
+        }
+
+        /* Section visibilities */
+        #config-section, #login-section, #dashboard-section {
+            display: none;
+        }
+
+        /* Helper badge */
+        .badge {
+            background-color: var(--color-bg-tertiary);
+            color: var(--color-text-secondary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 12px;
+            margin-left: 8px;
+        }
+
+        /* Loading indicator overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading-overlay" id="loading-overlay">CARGANDO...</div>
+
+    <!-- 1. CONFIGURATION VIEW (Fallback) -->
+    <div class="auth-container" id="config-section">
+        <div class="auth-card">
+            <h1 class="auth-title">Configuración Supabase</h1>
+            <p style="font-size:0.85rem; color:var(--color-text-secondary); margin-bottom:20px; text-align:center;">Ingresa las credenciales de tu proyecto para conectar la base de datos.</p>
+            
+            <div class="alert alert-error" id="config-error"></div>
+            
+            <form id="config-form">
+                <div class="form-group">
+                    <label for="input-url">Supabase URL</label>
+                    <input type="text" id="input-url" placeholder="https://xxxxxx.supabase.co" required>
+                </div>
+                <div class="form-group">
+                    <label for="input-anon">Supabase Anon Key</label>
+                    <input type="text" id="input-anon" placeholder="eyJhbGciOi..." required>
+                </div>
+                <button type="submit" class="submit-btn" style="width:100%;">Conectar Base de Datos</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. LOGIN VIEW -->
+    <div class="auth-container" id="login-section">
+        <div class="auth-card">
+            <h1 class="auth-title">Administración</h1>
+            <p style="font-size:0.85rem; color:var(--color-text-secondary); margin-bottom:20px; text-align:center;">Glamor Sutil — Acceso Administrativo</p>
+            
+            <div class="alert alert-error" id="login-error"></div>
+            <div class="alert alert-success" id="login-success"></div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required placeholder="admin@glamorsutil.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="******">
+                </div>
+                <button type="submit" class="submit-btn" style="width:100%;">Acceder</button>
+            </form>
+            <div style="text-align:center; margin-top:20px;">
+                <button id="btn-reset-config" style="font-size:0.75rem; color:var(--color-text-secondary); background:none; border:none; text-decoration:underline; cursor:pointer;">Restablecer Configuración Supabase</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. DASHBOARD VIEW -->
+    <div id="dashboard-section">
+        <header>
+            <div class="container header-wrap">
+                <div class="logo">GLAMOR SUTIL <span>Panel de Control</span></div>
+                <div style="display:flex; align-items:center; gap:20px;">
+                    <span id="user-display" style="font-size:0.85rem; color:var(--color-text-secondary);"></span>
+                    <button class="logout-btn" id="btn-logout">Cerrar Sesión</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <div class="dashboard-grid">
+                
+                <!-- Create Category Card -->
+                <div class="card">
+                    <h2 class="card-title">Crear Categoría</h2>
+                    <div class="alert alert-error" id="category-error"></div>
+                    <div class="alert alert-success" id="category-success"></div>
+                    
+                    <form id="category-form">
+                        <div class="form-group">
+                            <label for="category-name">Nombre de Categoría</label>
+                            <input type="text" id="category-name" placeholder="Ej. Rostro, Labios, Ojos" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Guardar Categoría</button>
+                    </form>
+
+                    <div style="margin-top: 30px;">
+                        <h3 style="font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--color-text-secondary); margin-bottom:10px;">Categorías Actuales</h3>
+                        <ul id="categories-list" style="list-style:none; display:flex; flex-wrap:wrap; gap:8px;">
+                            <!-- Dynamically loaded -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Create Product Card -->
+                <div class="card">
+                    <h2 class="card-title">Añadir Producto</h2>
+                    <div class="alert alert-error" id="product-error"></div>
+                    <div class="alert alert-success" id="product-success"></div>
+                    
+                    <form id="product-form">
+                        <div class="form-group">
+                            <label for="prod-name">Nombre del Producto</label>
+                            <input type="text" id="prod-name" required placeholder="Ej. Polvo Bakery">
+                        </div>
+                        <div class="form-group">
+                            <label for="prod-price">Precio (USD)</label>
+                            <input type="number" id="prod-price" required step="0.01" min="0" placeholder="Ej. 8.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="prod-category">Categoría</label>
+                            <select id="prod-category" required>
+                                <option value="" disabled selected>Selecciona una categoría</option>
+                                <!-- Loaded dynamically -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prod-desc">Descripción</label>
+                            <textarea id="prod-desc" rows="3" required placeholder="Descripción del producto..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="prod-image">Foto del Producto (JPEG / PNG)</label>
+                            <input type="file" id="prod-image" accept="image/jpeg,image/png" required>
+                        </div>
+                        <button type="submit" class="submit-btn" id="btn-save-product">Guardar Producto</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Inventory List Card -->
+            <div class="card" style="margin-top:30px;">
+                <h2 class="card-title">Inventario de Productos</h2>
+                <div class="alert alert-error" id="inventory-error"></div>
+                <div class="alert alert-success" id="inventory-success"></div>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-table-body">
+                            <!-- Dynamically loaded -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts: Supabase CDN, client initializer, and Admin Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script>
+        // Global variables
+        let db = null;
+
+        // UI state selectors
+        const configSection = document.getElementById('config-section');
+        const loginSection = document.getElementById('login-section');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAppConfigurationState();
+        });
+
+        // Determine view state
+        async function checkAppConfigurationState() {
+            showLoading(true);
+            
+            // Check if Supabase client can be built
+            db = window.getSupabaseClient();
+
+            if (!db) {
+                // Show setup form
+                showLoading(false);
+                configSection.style.display = 'block';
+                loginSection.style.display = 'none';
+                dashboardSection.style.display = 'none';
+                setupConfigForm();
+            } else {
+                // Credentials configured, check authentication
+                configSection.style.display = 'none';
+                
+                const { data: { session }, error } = await db.auth.getSession();
+                
+                showLoading(false);
+                if (session) {
+                    // Authenticated, show dashboard
+                    loginSection.style.display = 'none';
+                    dashboardSection.style.display = 'block';
+                    initDashboard(session.user);
+                } else {
+                    // Not authenticated, show login form
+                    loginSection.style.display = 'block';
+                    dashboardSection.style.display = 'none';
+                    setupLoginForm();
+                }
+            }
+        }
+
+        function showLoading(active) {
+            if (active) loadingOverlay.classList.add('active');
+            else loadingOverlay.classList.remove('active');
+        }
+
+        // ==========================================================================
+        // 1. CONFIGURATION VIEW LOGIC
+        // ==========================================================================
+        function setupConfigForm() {
+            const form = document.getElementById('config-form');
+            const alertErr = document.getElementById('config-error');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alertErr.style.display = 'none';
+
+                const url = document.getElementById('input-url').value.trim();
+                const key = document.getElementById('input-anon').value.trim();
+
+                if (!url.startsWith('https://') || key.length < 20) {
+                    alertErr.textContent = "Por favor ingresa credenciales válidas.";
+                    alertErr.style.display = 'block';
+                    return;
+                }
+
+                // Store in localStorage
+                localStorage.setItem('glamor_supabase_url', url);
+                localStorage.setItem('glamor_supabase_anon_key', key);
+
+                // Reload
+                window.location.reload();
+            });
+        }
+
+        // ==========================================================================
+        // 2. LOGIN VIEW LOGIC
+        // ==========================================================================
+        function setupLoginForm() {
+            const form = document.getElementById('login-form');
+            const alertErr = document.getElementById('login-error');
+            const alertSucc = document.getElementById('login-success');
+            const btnReset = document.getElementById('btn-reset-config');
+
+            btnReset.onclick = () => {
+                if (confirm("¿Seguro que deseas restablecer las claves de Supabase?")) {
+                    localStorage.removeItem('glamor_supabase_url');
+                    localStorage.removeItem('glamor_supabase_anon_key');
+                    window.location.reload();
+                }
+            };
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                alertErr.style.display = 'none';
+                alertSucc.style.display = 'none';
+                showLoading(true);
+
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+
+                const { data, error } = await db.auth.signInWithPassword({ email, password });
+
+                showLoading(false);
+                if (error) {
+                    alertErr.textContent = "Error de acceso: " + error.message;
+                    alertErr.style.display = 'block';
+                } else {
+                    alertSucc.textContent = "Acceso correcto. Redirigiendo...";
+                    alertSucc.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                }
+            });
+        }
+
+        // ==========================================================================
+        // 3. DASHBOARD VIEW LOGIC
+        // ==========================================================================
+        let categories = [];
+        let products = [];
+
+        function initDashboard(user) {
+            document.getElementById('user-display').textContent = `Email: ${user.email}`;
+
+            // Sign out action
+            document.getElementById('btn-logout').onclick = async () => {
+                showLoading(true);
+                await db.auth.signOut();
+                window.location.reload();
+            };
+
+            // Setup form listeners
+            setupCategoryActions();
+            setupProductActions();
+
+            // Load initial dashboard data
+            loadDashboardData();
+        }
+
+        async function loadDashboardData() {
+            showLoading(true);
+            await Promise.all([
+                loadCategories(),
+                loadProducts()
+            ]);
+            showLoading(false);
+        }
+
+        // --- Categories CRUD ---
+        async function loadCategories() {
+            const { data, error } = await db.from('categories').select('*').order('name');
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            categories = data;
+
+            // Render category list badges
+            const list = document.getElementById('categories-list');
+            list.innerHTML = categories.map(cat => `
+                <li style="background-color:var(--color-bg-tertiary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--color-border);">
+                    ${cat.name}
+                </li>
+            `).join('');
+
+            // Render select category dropdown options
+            const select = document.getElementById('prod-category');
+            select.innerHTML = '<option value="" disabled selected>Selecciona una categoría</option>' +
+                categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('');
+        }
+
+        function setupCategoryActions() {
+            const form = document.getElementById('category-form');
+            const alertErr = document.getElementById('category-error');
+            const alertSucc = document.getElementById('category-success');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                alertErr.style.display = 'none';
+                alertSucc.style.display = 'none';
+                showLoading(true);
+
+                const name = document.getElementById('category-name').value.trim();
+                // Generate slug simply
+                const slug = name.toLowerCase()
+                                 .replace(/[áäâà]/g, 'a')
+                                 .replace(/[éëêè]/g, 'e')
+                                 .replace(/[íïîì]/g, 'i')
+                                 .replace(/[óöôò]/g, 'o')
+                                 .replace(/[úüûù]/g, 'u')
+                                 .replace(/ñ/g, 'n')
+                                 .replace(/[^a-z0-9\s-]/g, '')
+                                 .replace(/\s+/g, '-');
+
+                const { data, error } = await db.from('categories').insert([{ name, slug }]).select();
+
+                showLoading(false);
+                if (error) {
+                    alertErr.textContent = "Error al crear categoría: " + error.message;
+                    alertErr.style.display = 'block';
+                } else {
+                    alertSucc.textContent = `Categoría "${name}" creada con éxito.`;
+                    alertSucc.style.display = 'block';
+                    form.reset();
+                    loadCategories();
+                }
+            });
+        }
+
+        // --- Products CRUD ---
+        async function loadProducts() {
+            const { data, error } = await db.from('products').select('*, categories(name)').order('created_at', { ascending: false });
+            if (error) {
+                document.getElementById('inventory-error').textContent = "Error al cargar inventario: " + error.message;
+                document.getElementById('inventory-error').style.display = 'block';
+                return;
+            }
+
+            products = data;
+            renderInventoryTable();
+        }
+
+        function renderInventoryTable() {
+            const tbody = document.getElementById('inventory-table-body');
+            tbody.innerHTML = '';
+
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--color-text-secondary);">No hay productos en inventario.</td></tr>`;
+                return;
+            }
+
+            products.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><img src="${p.image_url}" alt="${p.name}" class="thumb-img"></td>
+                    <td style="font-weight: 500;">${p.name}</td>
+                    <td>$${p.price.toFixed(2)} USD</td>
+                    <td>${p.categories ? p.categories.name : '<em style="color:red">Sin categoría</em>'}</td>
+                    <td><button class="btn-delete" data-id="${p.id}" data-url="${p.image_url}">Eliminar</button></td>
+                `;
+
+                tr.querySelector('.btn-delete').onclick = () => deleteProduct(p.id, p.image_url, p.name);
+                tbody.appendChild(tr);
+            });
+        }
+
+        function setupProductActions() {
+            const form = document.getElementById('product-form');
+            const alertErr = document.getElementById('product-error');
+            const alertSucc = document.getElementById('product-success');
+            const fileInput = document.getElementById('prod-image');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                alertErr.style.display = 'none';
+                alertSucc.style.display = 'none';
+                showLoading(true);
+
+                const name = document.getElementById('prod-name').value.trim();
+                const price = parseFloat(document.getElementById('prod-price').value);
+                const category_id = parseInt(document.getElementById('prod-category').value);
+                const description = document.getElementById('prod-desc').value.trim();
+                
+
+
+                const file = fileInput.files[0];
+                if (!file) {
+                    showLoading(false);
+                    alertErr.textContent = "Por favor selecciona una imagen para el producto.";
+                    alertErr.style.display = 'block';
+                    return;
+                }
+
+                try {
+                    // 1. Upload file to Supabase Storage Bucket 'product-media'
+                    const fileExt = file.name.split('.').pop();
+                    const cleanName = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                    const fileName = `${Date.now()}_${cleanName}.${fileExt}`;
+                    const filePath = `productos/${fileName}`;
+
+                    const { data: uploadData, error: uploadError } = await db.storage
+                        .from('product-media')
+                        .upload(filePath, file, { cacheControl: '3600', upsert: true });
+
+                    if (uploadError) throw new Error("Error al subir imagen: " + uploadError.message);
+
+                    // 2. Retrieve public URL
+                    const { data: { publicUrl } } = db.storage
+                        .from('product-media')
+                        .getPublicUrl(filePath);
+
+                    // 3. Save product in database
+                    const { data: insertedProduct, error: insertError } = await db.from('products').insert([
+                        {
+                            name,
+                            price,
+                            description,
+                            sizes: null,
+                            image_url: publicUrl,
+                            category_id
+                        }
+                    ]).select();
+
+                    if (insertError) {
+                        // Cleanup uploaded file on DB insert error to avoid orphaned assets
+                        await db.storage.from('product-media').remove([filePath]);
+                        throw new Error("Error al registrar producto: " + insertError.message);
+                    }
+
+                    showLoading(false);
+                    alertSucc.textContent = `Producto "${name}" registrado con éxito.`;
+                    alertSucc.style.display = 'block';
+                    form.reset();
+                    loadProducts();
+
+                } catch (err) {
+                    showLoading(false);
+                    alertErr.textContent = err.message;
+                    alertErr.style.display = 'block';
+                }
+            });
+        }
+
+        async function deleteProduct(id, imageUrl, name) {
+            if (!confirm(`¿Estás seguro de que deseas eliminar el producto "${name}"? Esta acción no se puede deshacer.`)) {
+                return;
+            }
+
+            showLoading(true);
+            const alertErr = document.getElementById('inventory-error');
+            const alertSucc = document.getElementById('inventory-success');
+            alertErr.style.display = 'none';
+            alertSucc.style.display = 'none';
+
+            try {
+                // 1. Delete from database
+                const { error: dbError } = await db.from('products').delete().eq('id', id);
+                if (dbError) throw new Error("Error al eliminar de base de datos: " + dbError.message);
+
+                // 2. Delete file from storage if it belongs to our bucket
+                if (imageUrl.includes('/product-media/')) {
+                    const filePath = imageUrl.split('/product-media/').pop();
+                    const { error: storageError } = await db.storage.from('product-media').remove([filePath]);
+                    if (storageError) {
+                        // Warn in console but proceed, since the DB entry is already gone
+                        console.warn("Could not delete associated media file:", storageError.message);
+                    }
+                }
+
+                showLoading(false);
+                alertSucc.textContent = `Producto "${name}" eliminado con éxito.`;
+                alertSucc.style.display = 'block';
+                loadProducts();
+
+            } catch (err) {
+                showLoading(false);
+                alertErr.textContent = err.message;
+                alertErr.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

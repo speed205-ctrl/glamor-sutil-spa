@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glamor Sutil — Cosmética Minimalista</title>
+    <meta name="description" content="Tu mejor versión comienza aquí. Selección de cosmética minimalista con ingredientes puros y productos conscientes cruelty-free.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header / Sticky Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Mobile Hamburger Menu Button -->
+            <button class="menu-toggle" id="menu-toggle-btn" aria-label="Abrir menú">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="4" y1="6" x2="20" y2="6"></line>
+                    <line x1="4" y1="12" x2="20" y2="12"></line>
+                    <line x1="4" y1="18" x2="20" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Text Logo -->
+            <a href="#home" class="logo">GLAMOR SUTIL</a>
+
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Colección</a></li>
+                    <li><a href="#editorial" class="nav-link">Editorial</a></li>
+                    <li><a href="#collections" class="nav-link">Categorías</a></li>
+                    <li><a href="#about" class="nav-link">Nosotros</a></li>
+                </ul>
+            </nav>
+
+            <!-- Cart Toggle Button -->
+            <button class="cart-toggle" id="cart-toggle-btn" aria-label="Ver carrito">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Left Drawer Navigation for Mobile -->
+    <aside class="mobile-drawer" id="mobile-drawer">
+        <div class="drawer-header">
+            <span class="drawer-title">MENÚ</span>
+            <button class="close-btn" id="close-menu-btn" aria-label="Cerrar menú">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <ul>
+                <li><a href="#home" class="drawer-link">Colección</a></li>
+                <li><a href="#editorial" class="drawer-link">Editorial</a></li>
+                <li><a href="#collections" class="drawer-link">Categorías</a></li>
+                <li><a href="#about" class="drawer-link">Nosotros</a></li>
+            </ul>
+        </nav>
+        <div class="drawer-footer">
+            <p>Glamor Sutil Studio</p>
+            <p><a href="https://www.instagram.com/glamorsutil/" target="_blank" rel="noopener">@glamorsutil</a></p>
+            <p>Tu mejor versión comienza aquí</p>
+        </div>
+    </aside>
+
+    <!-- Overlay for side drawers -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    <!-- Right Drawer Cart Sidebar -->
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="drawer-header">
+            <span class="drawer-title">TU CARRITO</span>
+            <button class="close-btn" id="close-cart-btn" aria-label="Cerrar carrito">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Cart Items Container -->
+        <div class="cart-items" id="cart-items-container">
+            <!-- Rendered dynamically via JavaScript -->
+            <div class="cart-empty-message">Tu carrito está vacío.</div>
+        </div>
+
+        <!-- Cart Summary Footer -->
+        <div class="cart-footer">
+            <div class="cart-subtotal-row">
+                <span>Subtotal</span>
+                <span class="cart-subtotal" id="cart-subtotal">$0.00 USD</span>
+            </div>
+            
+            <!-- WhatsApp Checkout -->
+            <button class="whatsapp-checkout-btn" id="whatsapp-checkout-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436.002 9.858-4.417 9.86-9.858.002-2.637-1.023-5.116-2.886-6.98C16.576 1.884 14.09 .856 11.455.855 6.023.855 1.6 5.275 1.597 10.71c-.001 1.707.447 3.376 1.3 4.887l-.997 3.64 3.747-.983zm11.567-7.7c-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.668.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.011c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path>
+                </svg>
+                Confirmar por WhatsApp
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content SPA Pages -->
+    <main>
+        
+        <!-- SECTION 1: NUEVA COLECCIÓN (Home) -->
+        <section id="home" class="spa-section active-section">
+            <div class="hero-editorial-intro">
+                <span class="subtitle">ESTUDIO DE BELLEZA</span>
+                <h1 class="main-title">Un toque de glamour para tu día a día.</h1>
+                <p class="intro-paragraph">Te mereces un maquillaje que se adapte a tu ritmo y resalte lo mejor de ti. Fórmulas premium diseñadas para darte esa dosis de confianza y elegancia que te encanta llevar contigo.</p>
+                
+                <!-- Category filter chips inside shop -->
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-category="all">Ver Todo</button>
+                    <button class="filter-btn" data-category="Rostro">Rostro</button>
+                    <button class="filter-btn" data-category="Labios">Labios</button>
+                    <button class="filter-btn" data-category="Ojos">Ojos</button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="product-grid-container">
+                <!-- Rendered dynamically via JavaScript from PRODUCTS database -->
+            </div>
+        </section>
+
+        <!-- SECTION 2: EDITORIAL -->
+        <section id="editorial" class="spa-section">
+            <div class="editorial-container">
+                <header class="editorial-header">
+                    <span class="subtitle">ESTUDIO VISUAL</span>
+                    <h2 class="editorial-title">Fórmulas en Calma</h2>
+                    <p class="editorial-desc">Una exploración que celebra la belleza de la textura, los destellos de luz sobre los labios y la suavidad del polvo sobre la piel.</p>
+                </header>
+
+                <!-- Cinematic Large Image Banner -->
+                <div class="editorial-hero-video">
+                    <img src="./assets/productos/combo_lip.jpeg" alt="Estudio de Color" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="video-overlay">
+                        <div class="overlay-text">
+                            <h3>Estudio de Color</h3>
+                            <p>Pigmentos de alta definición formulados para fundirse con la piel.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editorial Grid Story -->
+                <div class="editorial-grid">
+                    <div class="editorial-item format-portrait">
+                        <div class="image-wrapper">
+                            <img src="./assets/productos/gloss_dolce_bella.jpeg" alt="Luz y Reflejo" loading="lazy">
+                        </div>
+                        <div class="editorial-meta">
+                            <span class="num">01</span>
+                            <h4>Luz y Reflejo</h4>
+                            <p>El sutil brillo húmedo de aceites naturales y acabados espejo.</p>
+                        </div>
+                    </div>
+
+                    <div class="editorial-item format-landscape">
+                        <div class="image-wrapper">
+                            <img src="./assets/productos/polvo_bakery.jpeg" alt="Acabado y Sello" loading="lazy">
+                        </div>
+                        <div class="editorial-meta">
+                            <span class="num">02</span>
+                            <h4>Acabado y Sello</h4>
+                            <p>Fórmulas ligeras que fijan y difuminan con un acabado mate aterciopelado.</p>
+                        </div>
+                    </div>
+
+                    <div class="editorial-item format-portrait">
+                        <div class="image-wrapper">
+                            <img src="./assets/productos/rimel_pestanas.jpeg" alt="Definición y Mirada" loading="lazy">
+                        </div>
+                        <div class="editorial-meta">
+                            <span class="num">03</span>
+                            <h4>Definición y Mirada</h4>
+                            <p>Fórmulas ricas en nutrientes locales para pestañas fuertes y voluminosas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: COLECCIONES (Categorías) -->
+        <section id="collections" class="spa-section">
+            <div class="collections-container">
+                <header class="collections-header">
+                    <span class="subtitle">ESTUDIO DE CATEGORÍAS</span>
+                    <h2 class="collections-title">Líneas de Belleza</h2>
+                </header>
+
+                <div class="collections-grid">
+                    <!-- Rostro Card -->
+                    <div class="collection-card" data-target-category="Rostro">
+                        <div class="card-bg">
+                            <img src="./assets/productos/polvo_sheglam.jpeg" alt="Categoría Rostro" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Rostro</h3>
+                            <span class="explore-link">Ver Productos →</span>
+                        </div>
+                    </div>
+
+                    <!-- Labios Card -->
+                    <div class="collection-card" data-target-category="Labios">
+                        <div class="card-bg">
+                            <img src="./assets/productos/combo_lip.jpeg" alt="Categoría Labios" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Labios</h3>
+                            <span class="explore-link">Ver Productos →</span>
+                        </div>
+                    </div>
+
+                    <!-- Ojos Card -->
+                    <div class="collection-card" data-target-category="Ojos">
+                        <div class="card-bg">
+                            <img src="./assets/productos/mascara_fat_lash.jpeg" alt="Categoría Ojos" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Ojos</h3>
+                            <span class="explore-link">Ver Productos →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: NOSOTROS -->
+        <section id="about" class="spa-section">
+            <div class="about-container">
+                <div class="about-grid">
+                    <!-- Column 1: Philosophy Text -->
+                    <div class="about-info">
+                        <span class="subtitle">NUESTRA ESENCIA</span>
+                        <h2 class="about-title">La filosofía de la simplicidad.</h2>
+                        <div class="about-body">
+                            <p>En <strong>Glamor Sutil</strong>, nos despojamos del exceso para enfocarnos en lo esencial. Creemos que la cosmética no debe enmascarar, sino resaltar la belleza natural que ya posees.</p>
+                            <p>Seleccionamos cada producto bajo una estética depurada y minimalista, donde el bienestar de tu piel y la elegancia serena son la única prioridad.</p>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Pillars & Image -->
+                    <div class="about-pillars">
+                        <div class="about-image">
+                            <img src="./assets/productos/protector_solar.jpeg" alt="Sobre nosotros" loading="lazy">
+                        </div>
+                        
+                        <div class="pillars-list">
+                            <div class="pillar-item">
+                                <h3>Ingredientes Nobles</h3>
+                                <p>Seleccionamos marcas comprometidas con aceites botánicos hidratantes, fórmulas hipoalergénicas y pigmentos puros de alta calidad para cuidar de tu piel.</p>
+                            </div>
+                            <div class="pillar-item">
+                                <h3>Desarrollo Cruelty-Free</h3>
+                                <p>Trabajamos bajo un estricto respeto a la vida. Todos los productos que ofrecemos son 100% libres de crueldad animal, creados éticamente y dermatológicamente evaluados.</p>
+                            </div>
+                            <div class="pillar-item">
+                                <h3>Curaduría Consciente</h3>
+                                <p>Elegimos productos en lotes pequeños para garantizar su frescura, autenticidad y máxima eficacia, evitando el desperdicio y apoyando un consumo responsable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="logo">GLAMOR SUTIL</span>
+                <p>Tu mejor versión comienza aquí</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#home">Colección</a></li>
+                    <li><a href="#editorial">Editorial</a></li>
+                    <li><a href="#collections">Categorías</a></li>
+                    <li><a href="#about">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contacto</h4>
+                <p>Instagram: <a href="https://www.instagram.com/glamorsutil/" target="_blank" rel="noopener">@glamorsutil</a></p>
+                <p>WhatsApp: +58 424-5050383</p>
+                <p>Tienda Online · Venezuela</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Glamor Sutil. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart-btn" id="floating-cart-btn" aria-label="Ver carrito">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="floating-cart-badge" id="floating-cart-badge">0</span>
+    </button>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="product-detail-modal">
+        <div class="modal-container">
+            <button class="modal-close-btn" id="close-modal-btn" aria-label="Cerrar modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-content">
+                <div class="modal-media-column" id="modal-media-container">
+                    <!-- Loaded dynamically via JavaScript -->
+                </div>
+                <div class="modal-info-column">
+                    <span class="modal-product-category" id="modal-product-category">CATEGORÍA</span>
+                    <h2 class="modal-product-name" id="modal-product-name">Nombre del Producto</h2>
+                    <span class="modal-product-price" id="modal-product-price">$0.00 USD</span>
+                    <p class="modal-product-description" id="modal-product-description">Descripción detallada...</p>
+                    
+                    <div class="modal-actions">
+                        <button class="modal-add-to-cart-btn" id="modal-add-to-cart-btn">Añadir al carrito</button>
+                        <a href="#" class="modal-order-dm-link" id="modal-order-dm-link">Pedir por DM</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
